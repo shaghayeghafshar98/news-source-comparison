@@ -7,7 +7,7 @@ ARTICLES_PATH = Path("data/processed/topic_articles_analyzed.csv")
 PAIRS_PATH = Path("data/processed/similarity_pairs.csv")
 OUTPUT_PATH = Path("outputs/networks/news_similarity_network.html")
 
-SIMILARITY_THRESHOLD = 0.10
+SIMILARITY_THRESHOLD = 0.30
 
 
 def shorten(text, max_len=70):

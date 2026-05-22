@@ -1,7 +1,7 @@
 import html
 import pandas as pd
 from pathlib import Path
-
+import argparse
 
 ARTICLES_PATH = Path("data/processed/topic_articles_analyzed.csv")
 PAIRS_PATH = Path("data/processed/similarity_pairs.csv")
@@ -10,7 +10,7 @@ SOURCE_SUMMARY_PATH = Path("data/processed/source_summary.csv")
 REPORT_OUTPUT = Path("outputs/reports/news_comparison_report.html")
 NETWORK_PATH = Path("../networks/news_similarity_network.html")
 
-TOPIC_NAME = "Iran"
+
 
 
 def source_short_name(source):
@@ -41,6 +41,10 @@ def make_clickable_link(url):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate a news comparison HTML report.")
+    parser.add_argument("--topic", type=str, default="Unknown", help='Topic name, e.g. "Iran"')
+    args = parser.parse_args()
+    TOPIC_NAME = args.topic
     if not ARTICLES_PATH.exists():
         print(f"Missing file: {ARTICLES_PATH}")
         print("First run: python src/compare_articles.py")
