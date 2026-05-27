@@ -208,7 +208,7 @@ def build_network(articles, pairs):
 
     NETWORK_HTML.parent.mkdir(parents=True, exist_ok=True)
     net.show_buttons(filter_=["physics"])
-    net.write_html(str(NETWORK_HTML))
+    NETWORK_HTML.write_text(net.generate_html(), encoding="utf-8")
     return NETWORK_HTML
 
 

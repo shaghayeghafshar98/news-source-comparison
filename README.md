@@ -14,63 +14,40 @@ pip install -r requirements.txt
 
 ---
 
-## Usage
+## Running the app
 
-Run the five steps in order. Replace `"Iran"` with any topic you want.
+```bash
+streamlit run app.py
+```
 
-### 1. Collect articles from RSS feeds
+Then open `http://localhost:8501` in your browser.
+
+### Usage
+
+1. Click **"Fetch latest articles"** in the sidebar — pulls fresh articles from all 5 sources
+2. A dropdown of **suggested topics** appears automatically based on what's trending
+3. Pick one or type your own custom topic
+4. Click **"Run Analysis"** — the full pipeline runs in one go
+5. Explore the results across 4 tabs:
+   - 🌐 **Network** — interactive graph showing article similarity across sources
+   - 📊 **Source Summary** — per-source article count and average sentiment
+   - 📋 **Articles** — filterable list with sentiment scores and links
+   - 🔗 **Similar Pairs** — most similar article pairs across different outlets
+
+---
+
+## CLI usage (optional)
+
+The individual scripts still work as standalone tools if needed:
 
 ```bash
 python src/collect_rss.py
-```
-
-Saves raw articles to `data/raw/all_rss_articles.csv`.
-
-### 2. (Optional) Discover trending topics
-
-```bash
 python src/discover_topics.py
-```
-
-Prints the top terms and phrases across all collected articles — useful for picking a topic. Saves results to `data/processed/discovered_topics.csv`.
-
-### 3. Filter by topic
-
-```bash
-python src/filter_topic.py --topic "Iran"
-```
-
-Multi-word topics are supported (all words must appear in the article):
-
-```bash
-python src/filter_topic.py --topic "climate change"
-```
-
-Saves matching articles to `data/processed/topic_articles.csv`.
-
-### 4. Analyze sentiment and similarity
-
-```bash
+python src/filter_topic.py --topic "Ukraine"
 python src/compare_articles.py
-```
-
-Runs VADER sentiment scoring and TF-IDF cosine similarity on all filtered articles. Saves three files to `data/processed/`.
-
-### 5. Build the similarity network
-
-```bash
 python src/build_network.py
+python src/generate_report.py --topic "Ukraine"
 ```
-
-Generates an interactive network graph at `outputs/networks/news_similarity_network.html`. Each node is an article; edges connect articles above the similarity threshold. Open the file in a browser to explore.
-
-### 6. Generate the HTML report
-
-```bash
-python src/generate_report.py --topic "Iran"
-```
-
-Produces `outputs/reports/news_comparison_report.html` with a source summary table, article index, most-similar pairs, and a link to the network visualization.
 
 ---
 
@@ -92,4 +69,4 @@ Produces `outputs/reports/news_comparison_report.html` with a source summary tab
 | `data/processed/similarity_pairs.csv` | All article pairs with similarity scores |
 | `data/processed/source_summary.csv` | Per-source article count and average sentiment |
 | `outputs/networks/news_similarity_network.html` | Interactive network graph |
-| `outputs/reports/news_comparison_report.html` | Full HTML report |
+| `outputs/reports/news_comparison_report.html` | Full HTML report (CLI only) |
